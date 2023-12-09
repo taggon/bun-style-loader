@@ -1,0 +1,17 @@
+{
+  "name": "simple",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "bun run ./build.js"
+  },
+  "dependencies": {
+    "bun-style-loader": "file:../../"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
