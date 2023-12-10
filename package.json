@@ -2,9 +2,18 @@
   "name": "bun-style-loader",
   "description": "Bun plugin to allow loading css, sass files, and css modules",
   "version": "0.4.0",
+  "type": "module",
   "module": "src/index.ts",
   "types": "types/index.d.ts",
-  "type": "module",
+  "author": {
+    "name": "Taegon Kim",
+    "email": "gonom9@gmail.com",
+    "url": "https://taegon.kim"
+  },
+  "repository": "https://github.com/taggon/bun-style-loader",
+  "homepage": "https://github.com/taggon/bun-style-loader",
+  "bugs": "https://github.com/taggon/bun-style-loader/issues",
+  "license": "MIT",
   "files": [
     "src",
     "types"
