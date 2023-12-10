@@ -1,7 +1,6 @@
 import type { OnLoadResult } from 'bun';
 
 export type CompileOptions = {
-  minify?: boolean;
   cssModules?: boolean;
   targets?: string[];
 };
