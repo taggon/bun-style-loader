@@ -3,9 +3,9 @@
   "description": "Bun plugin to allow loading css, sass files, and css modules",
   "version": "0.3.0",
   "module": "src/index.ts",
-  "types": "src/index.ts",
+  "types": "types/index.d.ts",
   "type": "module",
-  "files": ["src"],
+  "files": ["src", "types"],
   "keywords": [
     "bun",
     "plugin",
@@ -17,13 +17,16 @@
   ],
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "bun": "./src/index.ts",
+      "types": "./types/index.d.ts"
     },
     "./utils": {
-      "import": "./src/utils.ts",
-      "types": "./src/utils.ts"
+      "bun": "./src/utils.ts",
+      "types": "./types/utils.d.ts"
     }
+  },
+  "scripts": {
+    "prepare": "rm -rf types && tsc -p tsconfig.build.json"
   },
   "devDependencies": {
     "bun-types": "latest"
