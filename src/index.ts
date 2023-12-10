@@ -6,7 +6,8 @@ import compileCSS from './compile-css';
  */
 export type StyleLoaderOptions = {
   /**
-   *
+   * List of target browsers to support
+   * @example ['chrome 80', 'ie 11']
    */
   targets?: string[];
 };
