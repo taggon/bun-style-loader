@@ -1,11 +1,14 @@
 {
   "name": "bun-style-loader",
   "description": "Bun plugin to allow loading css, sass files, and css modules",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "module": "src/index.ts",
   "types": "types/index.d.ts",
   "type": "module",
-  "files": ["src", "types"],
+  "files": [
+    "src",
+    "types"
+  ],
   "keywords": [
     "bun",
     "plugin",
