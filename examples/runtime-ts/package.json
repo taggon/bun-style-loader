@@ -1,9 +1,10 @@
 {
   "name": "simple",
-  "module": "index.js",
+  "module": "index.ts",
   "type": "module",
+  "private": true,
   "scripts": {
-    "build": "bun run ./build.ts"
+    "dev": "bun run ."
   },
   "dependencies": {
     "bun-style-loader": "file:../../"

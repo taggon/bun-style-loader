@@ -5,9 +5,19 @@ import compileCSS from './compile-css';
  * No options for now
  */
 export type StyleLoaderOptions = {
+  /**
+   *
+   */
+  targets?: string[];
+};
+
+const defaultOptions: StyleLoaderOptions = {
+  targets: [],
 };
 
 export default function styleLoader(options: StyleLoaderOptions = {}): BunPlugin {
+  const opts = { ...defaultOptions, ...options };
+
   return {
     name: 'style-loader',
     async setup(build) {
@@ -22,13 +32,15 @@ export default function styleLoader(options: StyleLoaderOptions = {}): BunPlugin
 
         return compileCSS(contents, args.path, {
           cssModules: isCssModule,
-          minify: Boolean(build.config.minify)
+          targets: opts.targets,
         });
       });
 
       build.onLoad({ filter: /\.scss$/ }, (args) => {
         const result = sass.compile(args.path);
-        return compileCSS(result.css, args.path);
+        return compileCSS(result.css, args.path, {
+          targets: opts.targets,
+        });
       });
     },
   };

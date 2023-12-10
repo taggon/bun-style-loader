@@ -1,5 +1,5 @@
 {
-  "name": "simple",
+  "name": "build-sass",
   "module": "index.js",
   "type": "module",
   "scripts": {
@@ -10,8 +10,5 @@
   },
   "devDependencies": {
     "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
   }
 }

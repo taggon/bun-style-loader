@@ -1,15 +1,18 @@
 {
-  "name": "build-css",
-  "module": "index.js",
+  "name": "build-css-modules-ts",
+  "module": "index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "bun run ./build.js"
+    "build": "bun run ./build.ts"
   },
   "dependencies": {
     "bun-style-loader": "file:../../"
   },
   "devDependencies": {
     "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }

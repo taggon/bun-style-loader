@@ -3,15 +3,19 @@ import type { OnLoadResult } from 'bun';
 export type CompileOptions = {
   minify?: boolean;
   cssModules?: boolean;
+  targets?: string[];
 };
 
 export default async function compileCSS(content: string, path: string, options: CompileOptions = {}): Promise<OnLoadResult> {
   const css = await import('lightningcss-wasm');
   const imports: string[] = [];
+  const targets = options.targets?.length ? css.browserslistToTargets(options.targets) : undefined;
   const { code, exports } = css.transform({
     filename: path,
     code: Buffer.from(content),
     cssModules: Boolean(options.cssModules),
+    minify: true,
+    targets,
     visitor: {
       Rule: {
         import(rule) {

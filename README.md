@@ -4,15 +4,16 @@ Bun plugin to allow loading css, sass files, and css modules
 
 ## Usage
 
-To begin, install the `bun-style-loader` package:
+To get begin, install the `bun-style-loader` package using the following commands:
 
 ```shell
 npm install --save-dev bun-style-loader
+npm install --save-dev sass # Required for compiling Sass (only when needed)
 ```
 
 Next, add the plugin to your build script:
 
-```javascript
+```js
 import styleLoader from 'bun-style-loader';
 
 Bun.build({
@@ -26,7 +27,7 @@ Bun.build({
 
 Now, you can import CSS, SASS files, and CSS modules in your code:
 
-```javascript
+```js
 import styles from './styles.css';
 
 console.log(styles); // string of the css file
@@ -34,9 +35,70 @@ console.log(styles); // string of the css file
 
 By following these steps, you integrate bun-style-loader into your project, allowing you to effortlessly import and use CSS, SASS, and CSS modules in your application.
 
+## Using at Runtime
+
+To incorporate the `bun-style-loader` at runtime, follow these steps. Assume you are creating a preloaded script named `preload.ts`:
+
+```js
+// preload.ts
+import { plugin } from 'bun';
+import styleLoader from 'bun-style-loader';
+
+await plugin(styleLoader(/* options here */));
+```
+
+Next, include `preload.ts` in the `preload` property within your `bunfig.toml` configuration file:
+
+```toml
+# bunfig.toml
+preload = ["./preload.ts"]
+```
+
+Please note that it is crucial to insert the `await` keyword before the `plugin` call to ensure proper functionality. Neglecting to do so may result in issues due to a reported problem, as outlined in [this GitHub issue](https://github.com/oven-sh/bun/issues/5520).
+
 ## Configuration
 
-The plugin does not support any options at this time.
+### targets
+
+Lightning CSS, which `bun-style-loader` relies on, does not perform automatic transpilation of CSS syntax for older browsers by default. To support older browsers, you can manually specify target browsers as follows:
+
+```js
+import styleLoader from 'bun-style-loader';
+
+Bun.build({
+  ...
+  plugins: [
+    styleLoader({
+      targets: [
+        'chrome 108',
+        'ie 11',
+        'safari 15.6',
+        'ios_saf 15.6',
+      ]
+    }),
+  ],
+  ...
+});
+```
+
+Alternatively, you can easily generate the list of target browsers using the `browserslist` package:
+
+```js
+import styleLoader from 'bun-style-loader';
+import browserslist from 'browserslist';
+
+Bun.build({
+  ...
+  plugins: [
+    styleLoader({
+      targets: browserslist('> 0.25%'),
+    }),
+  ],
+  ...
+});
+```
+
+This approach streamlines the configuration process, ensuring that your styles are appropriately transpiled for a broader range of browsers. To see how it works, refer to the `runtime-ts` example in [the repository](https://github.com/taggon/bun-style-loader).
 
 ## Insert CSS to DOM
 
@@ -44,7 +106,7 @@ The plugin does NOT automatically insert the CSS into the DOM. Instead, it provi
 
 Example for plain CSS:
 
-```javascript
+```js
 import { insertStyleElement } from 'bun-style-loader/utils';
 import styles from './styles.css';
 
@@ -60,7 +122,7 @@ Example for CSS modules:
 }
 ```
 
-```javascript
+```js
 // app.js
 import { insertStyleElement } from 'bun-style-loader/utils';
 import styles, { code } from './styles.module.css';
@@ -98,12 +160,6 @@ declare module '*.css' {
 ```
 
 These type declarations allow you to use CSS modules and plain CSS files in your TypeScript project with proper typings.
-
-## Frequently Asked Questions (FAQ)
-
-### Q: Can I use this plugin on runtime?
-
-**A:** No, using this plugin on runtime might not be supported in the current version. The plugin `onLoad` event for CSS files in Bun is not triggered during runtime, which significantly impact the functionality of this plugin. I want to support this feature in the future, but it is not possible at the moment.
 
 ## Support
 

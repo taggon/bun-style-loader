@@ -1,4 +1,4 @@
-import styleLoader from '../../src/index';
+import styleLoader from 'bun-style-loader';
 
 Bun.build({
   entrypoints: ['./index.js'],

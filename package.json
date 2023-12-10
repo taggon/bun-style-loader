@@ -32,10 +32,10 @@
     "bun-types": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": ">= 5.0.0",
+    "sass": ">= 1.0.0"
   },
   "dependencies": {
-    "lightningcss-wasm": "^1.22.1",
-    "sass": "^1.69.5"
+    "lightningcss-wasm": "^1.22.1"
   }
 }
